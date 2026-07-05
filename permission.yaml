@@ -1,0 +1,54 @@
+# Root Permission Model
+# ─────────────────────────────────────────────────────────────────────────────
+# This file defines what Root is and is not permitted to do on your machine.
+# Root reads this at boot and enforces it at Layer 8 — Security & Privacy.
+# No action outside these boundaries is executed. Ever.
+#
+# Edit this file to expand or restrict permissions.
+# Changes take effect on next boot.
+# ─────────────────────────────────────────────────────────────────────────────
+
+file_access:
+  read:
+    allowed: true
+    paths:
+      - ~/Documents
+      - ~/Projects
+      - ~/Desktop
+    excluded:
+      - ~/.ssh
+      - ~/.gnupg
+      - ~/Library/Keychains
+  write:
+    allowed: true
+    paths:
+      - ~/Documents
+      - ~/Projects
+    excluded:
+      - ~/.ssh
+      - ~/Library
+
+application_control:
+  allowed: true
+  can_open: true
+  can_close: false           # Root never closes apps without explicit instruction
+  can_install: false         # Root never installs software autonomously
+
+network:
+  allowed: false             # Root runs fully offline by default
+  exceptions: []             # Add specific domains only if needed
+
+communication:
+  email: false               # Root never sends email autonomously
+  messages: false            # Root never sends messages autonomously
+
+system:
+  can_modify_settings: false
+  can_run_shell_commands: false
+  can_access_camera: false
+  can_access_microphone: false
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Root will never perform an action not explicitly permitted above.
+# This file is the contract. Root honours it unconditionally.
+# ─────────────────────────────────────────────────────────────────────────────
